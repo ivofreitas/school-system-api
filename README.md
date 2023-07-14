@@ -294,7 +294,7 @@ Enroll students.
 ##### Request
 
 ```
-POST /v1/course/student
+POST /v1/course/enroll
 Content-Type: application/json
 Authorization: Bearer <token>
 
