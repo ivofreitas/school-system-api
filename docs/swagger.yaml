@@ -1,0 +1,389 @@
+definitions:
+  model.Course:
+    properties:
+      course_name:
+        type: string
+      created_at:
+        type: string
+      enrolled_students:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      max_students_number:
+        type: integer
+      room_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.CreateResponse:
+    properties:
+      id:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  model.EnrollStudentRequest:
+    properties:
+      room_id:
+        type: string
+      students_to_enroll:
+        items:
+          type: string
+        type: array
+    type: object
+  model.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  model.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  model.Meta:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+      record_count:
+        type: integer
+    type: object
+  model.Response:
+    properties:
+      meta:
+        $ref: '#/definitions/model.Meta'
+      records:
+        items: {}
+        type: array
+    type: object
+  model.ResponseError:
+    properties:
+      developer_message:
+        type: string
+      status_code:
+        type: integer
+      user_message:
+        type: string
+    type: object
+  model.Student:
+    properties:
+      created_at:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      ssid:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.User:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - role
+    - username
+    type: object
+info:
+  contact: {}
+paths:
+  /course:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: request body
+        in: body
+        name: key
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.Course'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      security:
+      - Authorization: []
+      summary: create a course.
+      tags:
+      - course
+  /course/enroll/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: course
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/model.EnrollStudentRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.EnrollStudentRequest'
+                  type: array
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      security:
+      - Authorization: []
+      summary: edit a course.
+      tags:
+      - course
+  /student:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: student id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.Student'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      security:
+      - Authorization: []
+      summary: delete a student.
+      tags:
+      - student
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: request body
+        in: body
+        name: key
+        required: true
+        schema:
+          $ref: '#/definitions/model.Student'
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.Student'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      security:
+      - Authorization: []
+      summary: create a student.
+      tags:
+      - student
+  /student/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: student id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/model.Student'
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.Student'
+                  type: array
+              type: object
+        "409":
+          description: No student found
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      security:
+      - Authorization: []
+      summary: edit a student.
+      tags:
+      - student
+  /user:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: request body
+        in: body
+        name: key
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.CreateResponse'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      summary: create a user.
+      tags:
+      - user
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: request body
+        in: body
+        name: key
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Response'
+            - properties:
+                meta:
+                  $ref: '#/definitions/model.Meta'
+                records:
+                  items:
+                    $ref: '#/definitions/model.LoginResponse'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+      summary: login using a user.
+      tags:
+      - user
+securityDefinitions:
+  Authorization:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
