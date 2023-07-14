@@ -91,3 +91,41 @@ func (m *StudentRepositoryMock) DeleteStudent(ctx context.Context, id string) er
 
 	return resultError
 }
+
+type CourseRepositoryMock struct {
+	mock.Mock
+	StudentRepositoryMock
+}
+
+func (m *CourseRepositoryMock) CreateCourse(ctx context.Context, course *model.Course) error {
+	args := m.Called(ctx, course)
+
+	var resultError error
+	if args.Get(0) != nil {
+		resultError = args.Get(0).(error)
+	}
+
+	return resultError
+}
+
+func (m *CourseRepositoryMock) GetCourseByRoomID(ctx context.Context, roomID string) (*model.Course, error) {
+	args := m.Called(ctx, roomID)
+
+	var resultError error
+	if args.Get(1) != nil {
+		resultError = args.Get(1).(error)
+	}
+
+	return args.Get(0).(*model.Course), resultError
+}
+
+func (m *CourseRepositoryMock) EnrollStudents(ctx context.Context, students []string, courseID string) error {
+	args := m.Called(ctx, students, courseID)
+
+	var resultError error
+	if args.Get(0) != nil {
+		resultError = args.Get(0).(error)
+	}
+
+	return resultError
+}
