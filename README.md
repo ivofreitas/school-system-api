@@ -54,8 +54,6 @@
 
 The API has the following endpoints:
 
-------------------
-
 #### User
 
 Create a user.
