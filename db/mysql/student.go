@@ -39,9 +39,9 @@ func (r *studentRepository) CreateStudent(ctx context.Context, student *model.St
 func (r *studentRepository) UpdateStudent(ctx context.Context, id string, student *model.Student) error {
 	_, err := r.db.ExecContext(ctx, `
 		UPDATE school.students
-		SET first_name = ?, last_name = ?, ssid = ?, updated_at = NOW()
+		SET first_name = ?, last_name = ?, ssid = ?, updated_at = ?
 		WHERE id = ?
-	`, student.FirstName, student.LastName, student.SSID, id)
+	`, student.FirstName, student.LastName, student.SSID, student.UpdatedAt, id)
 
 	return err
 }

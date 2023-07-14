@@ -59,7 +59,8 @@ func (h *handler) Create(ctx gocontext.Context, param interface{}) (interface{},
 // @Accept json
 // @Product json
 // @Success 200 {object} model.Response{meta=model.Meta,records=[]model.Student}
-// @Failure 409 {object} model.ResponseError "No student found"
+// @Failure 400 {object} model.ResponseError
+// @Failure 404 {object} model.ResponseError "No student found"
 // @Failure 500 {object} model.ResponseError
 // @Router /student/{id} [put]
 func (h *handler) Update(ctx gocontext.Context, param interface{}) (interface{}, error) {
@@ -89,6 +90,7 @@ func (h *handler) Update(ctx gocontext.Context, param interface{}) (interface{},
 // @Product json
 // @Success 200 {object} model.Response{meta=model.Meta,records=[]model.Student}
 // @Failure 400 {object} model.ResponseError
+// @Failure 404 {object} model.ResponseError
 // @Failure 500 {object} model.ResponseError
 // @Router /student/{id} [delete]
 func (h *handler) Delete(ctx gocontext.Context, param interface{}) (interface{}, error) {

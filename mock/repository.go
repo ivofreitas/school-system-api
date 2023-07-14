@@ -32,3 +32,62 @@ func (m *UserRepositoryMock) GetByUsername(ctx context.Context, username string)
 
 	return args.Get(0).(*model.User), resultError
 }
+
+type StudentRepositoryMock struct {
+	mock.Mock
+}
+
+func (m *StudentRepositoryMock) CreateStudent(ctx context.Context, student *model.Student) error {
+	args := m.Called(ctx, student)
+
+	var resultError error
+	if args.Get(0) != nil {
+		resultError = args.Get(0).(error)
+	}
+
+	return resultError
+}
+
+func (m *StudentRepositoryMock) UpdateStudent(ctx context.Context, id string, student *model.Student) error {
+	args := m.Called(ctx, id, student)
+
+	var resultError error
+	if args.Get(0) != nil {
+		resultError = args.Get(0).(error)
+	}
+
+	return resultError
+}
+
+func (m *StudentRepositoryMock) GetStudentByID(ctx context.Context, id string) (*model.Student, error) {
+	args := m.Called(ctx, id)
+
+	var resultError error
+	if args.Get(1) != nil {
+		resultError = args.Get(1).(error)
+	}
+
+	return args.Get(0).(*model.Student), resultError
+}
+
+func (m *StudentRepositoryMock) GetStudentsByIDs(ctx context.Context, ids []string) ([]*model.Student, error) {
+	args := m.Called(ctx, ids)
+
+	var resultError error
+	if args.Get(1) != nil {
+		resultError = args.Get(1).(error)
+	}
+
+	return args.Get(0).([]*model.Student), resultError
+}
+
+func (m *StudentRepositoryMock) DeleteStudent(ctx context.Context, id string) error {
+	args := m.Called(ctx, id)
+
+	var resultError error
+	if args.Get(0) != nil {
+		resultError = args.Get(0).(error)
+	}
+
+	return resultError
+}
