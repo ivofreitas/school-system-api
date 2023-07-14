@@ -14,8 +14,27 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d
 
-  teacherer:
-    image: adminer
-    restart: always
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERVER_HOST: "localhost"
+      SERVER_BASE_PATH: "/v1"
+      SERVER_PORT: 8080
+      AUTHORIZATION_SECRET: "8c08f857b7abb060bdd52ec1eebac7c3"
+      LOG_ENABLED: "true"
+      LOG_LEVEL: "info"
+      DOC_TITLE: "school-system-api"
+      DOC_DESCRIPTION:
+      DOC_ENABLED: "true"
+      DOC_VERSION: "1.0.0"
+      MYSQL_USERNAME: "user"
+      MYSQL_PASSWORD: "p45sw0rd"
+      MYSQL_HOST: "db:3306"
+      MYSQL_DATABASE: "school"
+      MYSQL_POOL_CONN: 5
+      MYSQL_CONN_LIFETIME: "60s"
+      SECURITY_SECRET_KEY: "707045b3f0bd5fxa"
     ports:
-      - 8080:8080
+      - "8088:8080"

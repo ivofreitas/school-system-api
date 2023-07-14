@@ -11,7 +11,7 @@ cover:
 	go test -cover ./...
 
 local-up:
-	docker-compose up -d
+	docker-compose up
 
 local-down:
 	docker-compose down --remove-orphans
