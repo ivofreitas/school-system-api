@@ -184,6 +184,8 @@ Content-Type: application/json
 }
 ```
 
+------------------
+
 Edit a student.
 
 ##### Request
@@ -224,6 +226,8 @@ Content-Type: application/json
     ]
 }
 ```
+
+------------------
 
 Delete a student.
 
@@ -285,6 +289,8 @@ Content-Type: application/json
 }
 ```
 
+------------------
+
 Enroll students.
 
 ##### Request
@@ -322,6 +328,8 @@ Content-Type: application/json
 ]
 }
 ```
+
+------------------
 
 ### Error Handling
 
