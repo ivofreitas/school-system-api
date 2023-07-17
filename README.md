@@ -10,23 +10,23 @@
 
 Select one
 
-1.1 dockerized:
+    1. Dockerized:
 
-Requires docker and docker-compose
+    Requires docker and docker-compose
 
-   ```
-   make local-up
-   ```
+       ```
+       make local-up
+       ```
 
-1.2 run as a go app:
+    2. Run as a go app:
 
-Requires a mysql instance running
+    Requires a mysql instance running
 
-   ```
-   make install
-   make configure
-   make start
-   ```
+    ```
+    make install
+    make configure
+    make start
+    ```
 
 The project should now be running at http://localhost:8088.
 
