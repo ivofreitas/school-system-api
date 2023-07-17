@@ -6,43 +6,37 @@
 
 ## Setup
 
-1. Install the project dependencies:
+1. Start  app:
 
-   ```
-   make install
-   ```
+Select one
 
-2. Configure the project:
+1.1 dockerized:
 
-   ```
-   make configure
-   ```
-
-   Then edit `config/.env` with your desired configuration values.
-   
-
-3. Start local environment:
+Requires docker and docker-compose
 
    ```
    make local-up
    ```
 
-4. Start the project:
+1.2 run as a go app:
+
+Requires a mysql instance running
 
    ```
+   make install
+   make configure
    make start
    ```
 
-   The project should now be running at http://localhost:8088.
+The project should now be running at http://localhost:8088.
 
-
-5. Run unit tests:
+2. Run unit tests:
 
    ```
    make test
    ```
    
-6. Run test coverage:
+3. Run test coverage:
 
    ```
    make cover
