@@ -12,7 +12,7 @@
          Requires docker and docker-compose
       
           ```
-          $ make local-up
+          make local-up
           ```
 
     2. Run as a go app:
